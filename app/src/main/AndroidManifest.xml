@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nuttwarunyu.blankbook">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="InlblA7o16kTwjosDmwtQz4lPnB6atJvi85VwGtV" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="Lg9SONO6KSKZZhquOYzSszjVMEFBKjeSN8zyB8Ng" />
+
+        <activity android:name=".AddStoryBookActivity" />
+        <activity android:name=".SingleStoryViewActivity"></activity>
+    </application>
+
+</manifest>
