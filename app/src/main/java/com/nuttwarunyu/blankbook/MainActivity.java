@@ -3,12 +3,17 @@ package com.nuttwarunyu.blankbook;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.support.v4.app.Fragment;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.parse.Parse;
@@ -20,37 +25,28 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Fragment {
 
     List<ParseObject> parseObjectList;
     ListView listView;
-    Button btnAdd;
     ProgressDialog progressDialog;
     CustomAdapter customAdapter;
     private List<StoryBook> storyBookList = null;
+    private RelativeLayout relativeLayout;
 
 
+    @Nullable
     @Override
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this);
+        relativeLayout = (RelativeLayout) inflater.inflate(R.layout.activity_main, container, false);
 
-        listView = (ListView) findViewById(R.id.listView_newFeed);
-        btnAdd = (Button) findViewById(R.id.btn_openAddActivity);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddStoryBookActivity.class);
-                startActivity(intent);
-            }
-        });
+        listView = (ListView) relativeLayout.findViewById(R.id.listView_newFeed);
 
-        Log.d("Tag1", "Before going to TaskProcess");
         new TaskProcess().execute();
+
+        return relativeLayout;
     }
 
     private class TaskProcess extends AsyncTask<Void, Void, Void> {
@@ -58,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog = new ProgressDialog(getActivity());
             progressDialog.setTitle("Parse Loading");
             progressDialog.setMessage("L o a d i n g. .");
             progressDialog.setIndeterminate(false);
@@ -77,17 +73,16 @@ public class MainActivity extends AppCompatActivity {
                 for (ParseObject storyData : parseObjectList) {
 
                     ParseFile image = (ParseFile) storyData.get("photoFile");
-                    Log.d("ParseFile image. . .", image + ". . . . . .");
 
                     StoryBook getBook = new StoryBook();
+                    getBook.setStory((String) storyData.get("story"));
                     getBook.setTitle((String) storyData.get("title"));
                     getBook.setCategories((String) storyData.get("categories"));
                     getBook.setPhotoFile(image.getUrl());
                     storyBookList.add(getBook);
-                    Log.d("doInBackground", "onProcess");
                 }
             } catch (ParseException e) {
-                Log.d("doInBackground", "Error");
+                Log.e("doInBackground", "Error");
                 e.printStackTrace();
             }
             return null;
@@ -95,9 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Log.d("onPostExecute", " " + storyBookList);
-            customAdapter = new CustomAdapter(getApplicationContext(), storyBookList);
-            Log.d("onPostExecute", " " + customAdapter);
+            customAdapter = new CustomAdapter(getActivity().getApplicationContext(), storyBookList);
             listView.setAdapter(customAdapter);
             progressDialog.dismiss();
         }

@@ -48,7 +48,7 @@ public class ImageLoader {
     public void DisplayImage(String url, ImageView imageView) {
         imageViews.put(imageView, url);
         Bitmap bitmap = memoryCache.get(url);
-        Log.d("DisplayImage. . . .", "  bitmap is " + bitmap);
+
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
         } else {
@@ -120,7 +120,6 @@ public class ImageLoader {
             BitmapFactory.Options options2 = new BitmapFactory.Options();
             options2.inSampleSize = scale;
             FileInputStream fileInputStream2 = new FileInputStream(f);
-            Log.d("in DecodeFile ","FileInputStream2 is " + fileInputStream2);
             Bitmap bitmap = BitmapFactory.decodeStream(fileInputStream2, null, options2);
             fileInputStream2.close();
             return bitmap;

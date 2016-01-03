@@ -29,13 +29,12 @@ public class MemoryCache {
 
     public void setLimit(long new_limit) {
         limit = new_limit;
-        Log.i(TAG, "MemoryCache will use up to " + limit / 1024. / 1024. + "MB");
+        Log.d(TAG, "MemoryCache will use up to " + limit / 1024. / 1024. + "MB");
     }
 
     public Bitmap get(String id) {
         try {
             if (!cache.containsKey(id)){
-                Log.d("MemoryCache get. . . .", "  cache is " + cache.containsKey(id));
                 return null;}
             return cache.get(id);
         } catch (NullPointerException e) {
@@ -58,7 +57,7 @@ public class MemoryCache {
     }
 
     private void checkSize() {
-        Log.i(TAG, "cache size=" + size + " length=" + cache.size());
+        Log.d(TAG, "cache size=" + size + " length=" + cache.size());
         if (size > limit) {
             // Least recently accessed item will be the first one iterated
             Iterator<Entry<String, Bitmap>> entryIterator = cache.entrySet().iterator();
@@ -69,7 +68,7 @@ public class MemoryCache {
                 if (size <= limit)
                     break;
             }
-            Log.i(TAG, "Clean cache. New size " + cache.size());
+            Log.d(TAG, "Clean cache. New size " + cache.size());
         }
     }
 

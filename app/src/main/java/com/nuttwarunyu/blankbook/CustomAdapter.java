@@ -33,7 +33,6 @@ public class CustomAdapter extends BaseAdapter {
     public CustomAdapter(Context context, List<StoryBook> storyBooksList) {
 
         this.context = context;
-        Log.d("CustomAdapter", " " + storyBooksList);
         this.storyBooksList = storyBooksList;
         mInflater = LayoutInflater.from(context);
         this.arrayList = new ArrayList<StoryBook>();
@@ -75,7 +74,7 @@ public class CustomAdapter extends BaseAdapter {
         holder.title.setText(storyBooksList.get(position).getTitle());
         holder.categories.setText(storyBooksList.get(position).getCategories());
         //set Image
-        imageLoader.DisplayImage(storyBooksList.get(position).getPhotoFile(),holder.thumbnail);
+        imageLoader.DisplayImage(storyBooksList.get(position).getPhotoFile(), holder.thumbnail);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +83,7 @@ public class CustomAdapter extends BaseAdapter {
                 intent.putExtra("title", storyBooksList.get(position).getTitle());
                 intent.putExtra("categories", storyBooksList.get(position).getCategories());
                 intent.putExtra("story", storyBooksList.get(position).getStory());
+                intent.putExtra("photoFile", storyBooksList.get(position).getPhotoFile());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
