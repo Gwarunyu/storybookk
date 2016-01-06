@@ -46,6 +46,7 @@ public class ImageLoader {
     final int stub_id = R.drawable.face_smile;
 
     public void DisplayImage(String url, ImageView imageView) {
+
         imageViews.put(imageView, url);
         Bitmap bitmap = memoryCache.get(url);
 

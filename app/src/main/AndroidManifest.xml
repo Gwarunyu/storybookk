@@ -14,13 +14,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="InlblA7o16kTwjosDmwtQz4lPnB6atJvi85VwGtV" />
         <meta-data
             android:name="com.parse.CLIENT_KEY"
             android:value="Lg9SONO6KSKZZhquOYzSszjVMEFBKjeSN8zyB8Ng" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="8a739f6eeb5f6b92a23670a117220b0594c7b9cb" />
 
         <activity android:name=".SingleStoryViewActivity" />
         <activity android:name=".MainViewPager">
@@ -30,9 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="8a739f6eeb5f6b92a23670a117220b0594c7b9cb" />
+
     </application>
 
 </manifest>

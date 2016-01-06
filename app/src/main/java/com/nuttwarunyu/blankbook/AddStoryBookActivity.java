@@ -101,6 +101,10 @@ public class AddStoryBookActivity extends Fragment {
             @Override
             public void onClick(View v) {
 
+                if (bitmap == null){
+                    bitmap = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.face_smile);
+                }
+
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] image = byteArrayOutputStream.toByteArray();
