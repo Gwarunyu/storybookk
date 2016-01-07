@@ -23,16 +23,20 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="8a739f6eeb5f6b92a23670a117220b0594c7b9cb" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="1704853149727291" />
 
         <activity android:name=".SingleStoryViewActivity" />
-        <activity android:name=".MainViewPager">
+        <activity android:name=".MainViewPager"></activity>
+        <activity android:name=".LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>
