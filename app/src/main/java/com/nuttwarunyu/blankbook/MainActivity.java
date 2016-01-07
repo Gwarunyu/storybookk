@@ -74,12 +74,12 @@ public class MainActivity extends Fragment {
 
                     ParseFile image = (ParseFile) storyData.get("photoFile");
 
-                    StoryBook getBook = new StoryBook();
-                    getBook.setStory((String) storyData.get("story"));
-                    getBook.setTitle((String) storyData.get("title"));
-                    getBook.setCategories((String) storyData.get("categories"));
-                    getBook.setPhotoFile(image.getUrl());
-                    storyBookList.add(getBook);
+                    StoryBook storyBook = new StoryBook();
+                    storyBook.setStory((String) storyData.get("story"));
+                    storyBook.setTitle((String) storyData.get("title"));
+                    storyBook.setCategories((String) storyData.get("categories"));
+                    storyBook.setPhotoFile(image.getUrl());
+                    storyBookList.add(storyBook);
                 }
             } catch (ParseException e) {
                 Log.e("doInBackground", "Error");
