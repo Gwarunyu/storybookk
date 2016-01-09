@@ -122,7 +122,7 @@ public class LogInActivity extends AppCompatActivity {
         ParseFacebookUtils.logInWithReadPermissionsInBackground(LogInActivity.this, (Collection<String>) permission, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
-                Log.d("openFacebookLogIn()", " User's Value  is : " + user);
+
                 if (user == null) {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
@@ -130,9 +130,9 @@ public class LogInActivity extends AppCompatActivity {
                     getUserDetailsFromFB();
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
-                    getUserDetailsFromFB();
+                    //getUserDetailsFromFB();
 
-                    //getUserDetailsFromParse();
+                    getUserDetailsFromParse();
                 }
             }
         });
