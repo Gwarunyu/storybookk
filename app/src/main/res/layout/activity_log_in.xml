@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="#ff3eaff9"
@@ -10,62 +9,67 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center"
         android:layout_centerInParent="true"
-        android:background="#ffffffff">
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/mProfileImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="title"
-            android:textSize="24sp"
             android:textColor="#ff3eaff9"
-            android:layout_marginBottom="16dp"/>
+            android:textSize="24sp" />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
             android:id="@+id/login_username"
-            android:hint="username_title"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="username_title"
+            android:padding="16dp" />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
             android:id="@+id/login_password"
-            android:inputType="textPassword"
-            android:hint="password_title"/>
-        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="password_title"
+            android:inputType="textPassword"
+            android:padding="16dp" />
+
+        <Button
             android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="#ff3eaff9"
-            android:textColor="#ffffff"
             android:text="login_button"
-            android:textSize="18sp"
-            android:layout_marginTop="16dp"/>
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
 
         <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebookLoginButton"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/facebookLoginButton"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
     <TextView
+        android:id="@+id/login_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/login_register"
-        android:text="register"
-        android:textColor="#ffffff"
-        android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="16dp"/>
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="16dp"
+        android:text="register"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
