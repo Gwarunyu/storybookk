@@ -75,10 +75,18 @@ public class LogInActivity extends AppCompatActivity {
         bindWidget();
 
         LoginButton fbLoginButton = (LoginButton) findViewById(R.id.facebookLoginButton);
+
+        if (ParseUser.getCurrentUser() != null) {
+            parseUser = ParseUser.getCurrentUser();
+            GoToMainViewPager();
+        }
+
+
         fbLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openFacebookLogIn();
+                GoToMainViewPager();
             }
         });
 
@@ -86,6 +94,7 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkLogin();
+                GoToMainViewPager();
             }
         });
 
@@ -108,9 +117,7 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e == null) {
-                    Intent intent = new Intent(getApplicationContext(), MainViewPager.class);
-                    startActivity(intent);
-                    finish();
+                    GoToMainViewPager();
                 } else {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -130,8 +137,6 @@ public class LogInActivity extends AppCompatActivity {
                     getUserDetailsFromFB();
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
-                    //getUserDetailsFromFB();
-
                     getUserDetailsFromParse();
                 }
             }
@@ -259,8 +264,12 @@ public class LogInActivity extends AppCompatActivity {
         loginRegister.setText(parseUser.getUsername());
 
         Toast.makeText(LogInActivity.this, "Welcome Back  " + loginRegister.getText().toString(), Toast.LENGTH_SHORT).show();
-
     }
 
+    private void GoToMainViewPager(){
+        Intent intent = new Intent(getApplicationContext(), MainViewPager.class);
+        startActivity(intent);
+        finish();
+    }
 }
 

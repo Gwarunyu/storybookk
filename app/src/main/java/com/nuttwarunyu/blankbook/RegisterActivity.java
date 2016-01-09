@@ -1,5 +1,6 @@
 package com.nuttwarunyu.blankbook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -44,6 +45,11 @@ public class RegisterActivity extends AppCompatActivity {
                         public void done(ParseException e) {
                             if (e == null) {
                                 Toast.makeText(getApplicationContext(), "Complete", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(getApplicationContext(), MainViewPager.class);
+                                startActivity(intent);
+                                finish();
+
                             } else {
                                 Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
                             }
