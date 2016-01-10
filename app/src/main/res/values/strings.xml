@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">BlankBook</string>
 
+    //FB ID
     <string name="fb_app_id">1704853149727291</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    ////ActionBar
+    <string name="log_out">Log Out</string>
+    <string name="profile">Profile</string>
+
 </resources>
