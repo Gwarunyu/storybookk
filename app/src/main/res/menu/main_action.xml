@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+   >
+    <item
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/face_smile"
+        android:showAsAction="ifRoom"
+        android:title="refresh"
+       />
+    <item
+        android:id="@+id/action_help"
+        android:icon="@drawable/com_facebook_button_send_icon"
+        android:showAsAction="ifRoom"
+        android:title="help"
+        />
+    <item
+        android:id="@+id/action_status"
+        android:showAsAction="never"
+        android:title="Status"
+        />
+    <item
+        android:id="@+id/action_profile"
+        android:showAsAction="never"
+        android:title="profile"
+        />
+
+</menu>

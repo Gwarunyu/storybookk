@@ -1,84 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="25dp"
-    android:paddingLeft="25dp"
-    android:paddingRight="25dp"
-    android:paddingTop="25dp"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    android:paddingRight="15dp"
+    android:paddingLeft="15dp">
 
-    >
-
-
-    <LinearLayout
-        android:id="@+id/linePhotoTitle"
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="20dp">
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="2dp"
+        >
 
-        <ImageView
-            android:id="@+id/story_thumbnail"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/ic_launcher" />
+            android:layout_height="match_parent"
+            android:paddingBottom="25dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="25dp">
+
+            <LinearLayout
+                android:id="@+id/linePhotoTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/story_thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_launcher" />
 
 
-        <TextView
-            android:id="@+id/story_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:textColor="@color/title"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/story_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textColor="@color/title"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/story_categories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Categories"
-            android:textColor="@color/story" />
+                <TextView
+                    android:id="@+id/story_categories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Categories"
+                    android:textColor="@color/story" />
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/lineUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linePhotoTitle"
-        android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/lineUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linePhotoTitle"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/story_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/story_thumbnail_user"
-            android:layout_marginRight="8dp"
-            android:textColor="#000000"
-            android:text="userName" />
+                <TextView
+                    android:id="@+id/story_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:layout_toRightOf="@+id/story_thumbnail_user"
+                    android:text="userName"
+                    android:textColor="#000000" />
 
 
-        <TextView
-            android:id="@+id/story_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:textColor="#000000"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
-            android:text="Date" />
+                <TextView
+                    android:id="@+id/story_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:text="Date"
+                    android:textColor="#000000" />
 
-        <ImageView
-            android:id="@+id/story_thumbnail_user"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_launcher" />
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/story_thumbnail_user"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_launcher" />
+            </RelativeLayout>
 
-</RelativeLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

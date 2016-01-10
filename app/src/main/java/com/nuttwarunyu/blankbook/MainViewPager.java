@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
@@ -33,12 +34,19 @@ public class MainViewPager extends FragmentActivity {
         txtUsername = (TextView) findViewById(R.id.txtUsername);
 
         ParseUser parseUser = ParseUser.getCurrentUser();
-        txtUsername.setText(parseUser.getUsername());
-
+        if (ParseUser.getCurrentUser() != null) {
+            txtUsername.setText(parseUser.getUsername());
+        }
         MyPageViewAdapter myPageViewAdapter = new MyPageViewAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(myPageViewAdapter);
-
-        }
-
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        Log.d("TAG MENU : ", "  " + menu);
+        getMenuInflater().inflate(R.menu.main_action, menu);
+        return true;
+    }
+}

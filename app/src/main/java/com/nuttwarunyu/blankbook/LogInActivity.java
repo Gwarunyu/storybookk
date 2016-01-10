@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,6 +79,7 @@ public class LogInActivity extends AppCompatActivity {
 
         if (ParseUser.getCurrentUser() != null) {
             parseUser = ParseUser.getCurrentUser();
+            Log.d("LogInActivity "," By ParseUser.getCurrentUser() != null");
             GoToMainViewPager();
         }
 
@@ -86,6 +88,7 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openFacebookLogIn();
+                Log.d("LogInActivity ", " openFacebookLogIn();");
                 GoToMainViewPager();
             }
         });
@@ -94,6 +97,7 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkLogin();
+                Log.d("LogInActivity ", " ParseUser.logInInBackground");
                 GoToMainViewPager();
             }
         });
@@ -266,10 +270,17 @@ public class LogInActivity extends AppCompatActivity {
         Toast.makeText(LogInActivity.this, "Welcome Back  " + loginRegister.getText().toString(), Toast.LENGTH_SHORT).show();
     }
 
-    private void GoToMainViewPager(){
+    private void GoToMainViewPager() {
         Intent intent = new Intent(getApplicationContext(), MainViewPager.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_action, menu);
+        return true;
     }
 }
 
