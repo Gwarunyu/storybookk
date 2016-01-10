@@ -19,7 +19,7 @@ import com.parse.ParseUser;
 import io.fabric.sdk.android.Fabric;
 
 
-public class MainViewPager extends FragmentActivity {
+public class MainViewPager extends AppCompatActivity {
 
     ViewPager viewPager;
     TextView txtUsername;
