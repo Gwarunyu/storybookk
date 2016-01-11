@@ -1,8 +1,7 @@
 package com.nuttwarunyu.blankbook;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,10 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
 import com.parse.ParseUser;
 
 import io.fabric.sdk.android.Fabric;
@@ -25,6 +20,7 @@ public class MainViewPager extends AppCompatActivity {
 
     ViewPager viewPager;
     TextView txtUsername;
+    ParseUser parseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +31,9 @@ public class MainViewPager extends AppCompatActivity {
 
         txtUsername = (TextView) findViewById(R.id.txtUsername);
 
-        ParseUser parseUser = ParseUser.getCurrentUser();
+        Log.d(" 1 ParseUser's Value is", "  :  " + parseUser);
+        parseUser = ParseUser.getCurrentUser();
+        Log.d(" 2 ParseUser's Value is", "  :  " + parseUser);
         if (ParseUser.getCurrentUser() != null) {
             txtUsername.setText(parseUser.getUsername());
         }
@@ -57,7 +55,15 @@ public class MainViewPager extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_logout:
-                Toast.makeText(MainViewPager.this, "case R.id.action_logout:", Toast.LENGTH_SHORT).show();
+                if (parseUser != null) {
+                    ParseUser.logOut();
+                    parseUser = ParseUser.getCurrentUser();
+
+                    Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
                 return true;
             case R.id.action_profile:
                 Toast.makeText(MainViewPager.this, "case R.id.action_profile:", Toast.LENGTH_SHORT).show();

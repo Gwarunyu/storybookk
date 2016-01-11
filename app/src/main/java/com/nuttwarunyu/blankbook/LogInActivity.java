@@ -79,7 +79,7 @@ public class LogInActivity extends AppCompatActivity {
 
         if (ParseUser.getCurrentUser() != null) {
             parseUser = ParseUser.getCurrentUser();
-            Log.d("LogInActivity "," By ParseUser.getCurrentUser() != null");
+            Log.d("LogInActivity ", " By ParseUser.getCurrentUser() != null");
             GoToMainViewPager();
         }
 
@@ -88,8 +88,6 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openFacebookLogIn();
-                Log.d("LogInActivity ", " openFacebookLogIn();");
-                GoToMainViewPager();
             }
         });
 
@@ -130,21 +128,25 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void openFacebookLogIn() {
-        ParseFacebookUtils.logInWithReadPermissionsInBackground(LogInActivity.this, (Collection<String>) permission, new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
+        ParseFacebookUtils.logInWithReadPermissionsInBackground(LogInActivity.this,
+                (Collection<String>) permission,
+                new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user, ParseException e) {
 
-                if (user == null) {
-                    Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
-                } else if (user.isNew()) {
-                    Log.d("MyApp", "User signed up and logged in through Facebook!");
-                    getUserDetailsFromFB();
-                } else {
-                    Log.d("MyApp", "User logged in through Facebook!");
-                    getUserDetailsFromParse();
-                }
-            }
-        });
+                        if (user == null) {
+                            Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
+                        } else if (user.isNew()) {
+                            Log.d("MyApp", "User signed up and logged in through Facebook!");
+                            getUserDetailsFromFB();
+                            GoToMainViewPager();
+                        } else {
+                            Log.d("MyApp", "User logged in through Facebook!");
+                            getUserDetailsFromParse();
+                            GoToMainViewPager();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -162,7 +164,6 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onCompleted(GraphResponse response) {
                 try {
-//TODO                    email = response.getJSONObject().getString("email");
                     name = response.getJSONObject().getString("name");
 
                     Log.d("GraphRequest ", " is response.... Name :" + name + "  email :" + email);

@@ -32,6 +32,7 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
@@ -64,6 +65,8 @@ public class AddStoryBookActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         linearLayout = (RelativeLayout) inflater.inflate(R.layout.activity_add_story_book, container, false);
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        final String username = parseUser.getUsername();
 
         Fabric.with(getActivity().getApplicationContext(), new Crashlytics());
         bindWidget();
@@ -101,22 +104,23 @@ public class AddStoryBookActivity extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (bitmap == null){
-                    bitmap = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.face_smile);
+                if (bitmap == null) {
+                    bitmap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.face_smile);
                 }
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] image = byteArrayOutputStream.toByteArray();
 
-                ParseFile file = new ParseFile("blankBook.png",image);
+                ParseFile file = new ParseFile("blankBook.png", image);
                 file.saveInBackground();
 
                 ParseObject bookStory = new ParseObject("myBookTable");
                 bookStory.put("title", edtTitle.getText().toString());
                 bookStory.put("categories", edtCategories.getText().toString());
                 bookStory.put("story", edtStory.getText().toString());
-                bookStory.put("photoFile",file);
+                bookStory.put("photoFile", file);
+                bookStory.put("author", username);
 
                 bookStory.saveInBackground(new SaveCallback() {
                     @Override
