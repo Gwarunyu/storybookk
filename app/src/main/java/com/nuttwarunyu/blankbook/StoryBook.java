@@ -11,6 +11,7 @@ public class StoryBook {
     String categories;
     String story;
     String photoFile;
+    String author;
 
     //Get
     public String getTitle() {
@@ -27,6 +28,10 @@ public class StoryBook {
 
     public String getPhotoFile() {
         return photoFile;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 
     //Set
@@ -46,4 +51,10 @@ public class StoryBook {
     public void setPhotoFile(String photoFile) {
         this.photoFile = photoFile;
     }
+
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
 }

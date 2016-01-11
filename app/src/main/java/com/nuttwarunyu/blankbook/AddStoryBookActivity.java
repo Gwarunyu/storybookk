@@ -153,6 +153,7 @@ public class AddStoryBookActivity extends Fragment {
                     assert stream != null;
                     stream.close();
                     imgPhoto.setImageBitmap(bitmap);
+                    bitmap = null;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

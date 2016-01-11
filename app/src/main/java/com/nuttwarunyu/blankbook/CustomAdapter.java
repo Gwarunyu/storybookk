@@ -65,7 +65,9 @@ public class CustomAdapter extends BaseAdapter {
             //Locate textView in storyFeed
             holder.title = (TextView) view.findViewById(R.id.story_title);
             holder.categories = (TextView) view.findViewById(R.id.story_categories);
-            holder.thumbnail = (ImageView) view.findViewById(R.id.story_thumbnail);
+            holder.contentThumbnail = (ImageView) view.findViewById(R.id.story_thumbnail);
+            holder.author = (TextView) view.findViewById(R.id.story_author);
+            holder.userThumbnail = (ImageView) view.findViewById(R.id.story_thumbnail_user);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -73,8 +75,10 @@ public class CustomAdapter extends BaseAdapter {
 
         holder.title.setText(storyBooksList.get(position).getTitle());
         holder.categories.setText(storyBooksList.get(position).getCategories());
+        holder.author.setText(storyBooksList.get(position).getAuthor());
         //set Image
-        imageLoader.DisplayImage(storyBooksList.get(position).getPhotoFile(), holder.thumbnail);
+        imageLoader.DisplayImage(storyBooksList.get(position).getPhotoFile(), holder.contentThumbnail);
+
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,9 +96,10 @@ public class CustomAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        ImageView thumbnail;
+        ImageView contentThumbnail;
         TextView title;
         TextView author;
         TextView categories;
+        ImageView userThumbnail;
     }
 }

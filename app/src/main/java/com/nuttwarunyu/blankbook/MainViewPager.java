@@ -31,9 +31,7 @@ public class MainViewPager extends AppCompatActivity {
 
         txtUsername = (TextView) findViewById(R.id.txtUsername);
 
-        Log.d(" 1 ParseUser's Value is", "  :  " + parseUser);
         parseUser = ParseUser.getCurrentUser();
-        Log.d(" 2 ParseUser's Value is", "  :  " + parseUser);
         if (ParseUser.getCurrentUser() != null) {
             txtUsername.setText(parseUser.getUsername());
         }

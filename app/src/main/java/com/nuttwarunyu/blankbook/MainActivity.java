@@ -79,6 +79,7 @@ public class MainActivity extends Fragment {
                     storyBook.setTitle((String) storyData.get("title"));
                     storyBook.setCategories((String) storyData.get("categories"));
                     storyBook.setPhotoFile(image.getUrl());
+                    storyBook.setAuthor((String) storyData.get("author"));
                     storyBookList.add(storyBook);
                 }
             } catch (ParseException e) {
