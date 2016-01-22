@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.crashlytics.android.Crashlytics;
 import com.parse.ParseUser;
@@ -19,7 +19,6 @@ import io.fabric.sdk.android.Fabric;
 public class MainViewPager extends AppCompatActivity {
 
     ViewPager viewPager;
-    TextView txtUsername;
     ParseUser parseUser;
 
     @Override
@@ -29,11 +28,9 @@ public class MainViewPager extends AppCompatActivity {
         Fabric.with(getApplicationContext(), new Crashlytics());
         setContentView(R.layout.main_view_pager);
 
-        txtUsername = (TextView) findViewById(R.id.txtUsername);
-
         parseUser = ParseUser.getCurrentUser();
         if (ParseUser.getCurrentUser() != null) {
-            txtUsername.setText(parseUser.getUsername());
+            Toast.makeText(MainViewPager.this, "Welcome " + parseUser.toString(), Toast.LENGTH_SHORT).show();
         }
         MyPageViewAdapter myPageViewAdapter = new MyPageViewAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
