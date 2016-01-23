@@ -94,9 +94,9 @@ public class LogInActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 checkLogin();
                 Log.d("LogInActivity ", " ParseUser.logInInBackground");
-                GoToMainViewPager();
             }
         });
 

@@ -122,6 +122,7 @@ public class AddStoryBookActivity extends Fragment {
                 bookStory.put("photoFile", file);
                 bookStory.put("author", username);
 
+
                 bookStory.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

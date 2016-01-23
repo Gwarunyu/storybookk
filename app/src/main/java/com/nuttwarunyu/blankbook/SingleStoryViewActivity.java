@@ -26,7 +26,7 @@ public class SingleStoryViewActivity extends AppCompatActivity {
         TextView txtCategories = (TextView) findViewById(R.id.single_categories);
         TextView txtStory = (TextView) findViewById(R.id.single_story);
 
-        ImageView imgPhotoFile = (ImageView) findViewById(R.id.single_photo);
+        ImageView imgPhotoFile = (ImageView) findViewById(R.id.main_backdrop);
 
         txtTitle.setText(singleTitle);
         txtCategories.setText(singleCategories);
