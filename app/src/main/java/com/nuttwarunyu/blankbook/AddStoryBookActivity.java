@@ -130,6 +130,7 @@ public class AddStoryBookActivity extends Fragment {
                             edtStory.setText("");
                             edtTitle.setText("");
                             edtCategories.setText("");
+                            bitmap = null;
                             Toast.makeText(getActivity().getApplicationContext(), "Complete", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.e("Parse Error", e.toString());
@@ -154,7 +155,7 @@ public class AddStoryBookActivity extends Fragment {
                     assert stream != null;
                     stream.close();
                     imgPhoto.setImageBitmap(bitmap);
-                    bitmap = null;
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

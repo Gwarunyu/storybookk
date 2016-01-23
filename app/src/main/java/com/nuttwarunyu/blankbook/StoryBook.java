@@ -52,7 +52,6 @@ public class StoryBook {
         this.photoFile = photoFile;
     }
 
-
     public void setAuthor(String author) {
         this.author = author;
     }

@@ -106,7 +106,7 @@ public class ImageLoader {
             fileInputStream1.close();
 
             // Find the correct scale value. It should be the power of 2.
-            final int REQUIRED_SIZE = 70;
+            final int REQUIRED_SIZE = 200;
             int width_tmp = options.outWidth, height_tmp = options.outHeight;
             int scale = 1;
             while (true) {
@@ -124,8 +124,6 @@ public class ImageLoader {
             Bitmap bitmap = BitmapFactory.decodeStream(fileInputStream2, null, options2);
             fileInputStream2.close();
             return bitmap;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
