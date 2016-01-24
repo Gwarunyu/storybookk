@@ -38,7 +38,6 @@ public class MainActivity extends Fragment {
 
     @Nullable
     @Override
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         relativeLayout = (RelativeLayout) inflater.inflate(R.layout.activity_main, container, false);
@@ -69,17 +68,21 @@ public class MainActivity extends Fragment {
 
             try {
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("myBookTable");
+                query.orderByDescending("createdAt");
                 parseObjectList = query.find();
                 for (ParseObject storyData : parseObjectList) {
 
                     ParseFile image = (ParseFile) storyData.get("photoFile");
+                    ParseFile photoAuthor = (ParseFile) storyData.get("photoAuthor");
 
                     StoryBook storyBook = new StoryBook();
                     storyBook.setStory((String) storyData.get("story"));
                     storyBook.setTitle((String) storyData.get("title"));
                     storyBook.setCategories((String) storyData.get("categories"));
                     storyBook.setPhotoFile(image.getUrl());
+                    storyBook.setPhotoAuthor(photoAuthor.getUrl());
                     storyBook.setAuthor((String) storyData.get("author"));
+                    storyBook.setDate((String) storyData.get("currentdate"));
                     storyBookList.add(storyBook);
                 }
             } catch (ParseException e) {

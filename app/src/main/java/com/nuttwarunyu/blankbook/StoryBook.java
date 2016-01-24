@@ -12,8 +12,16 @@ public class StoryBook {
     String story;
     String photoFile;
     String author;
+    String date;
+    String photoAuthor;
 
     //Get
+
+
+    public String getPhotoAuthor() {
+        return photoAuthor;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -34,7 +42,16 @@ public class StoryBook {
         return author;
     }
 
+    public String getDate() {
+        return date;
+    }
+
     //Set
+
+
+    public void setPhotoAuthor(String photoAuthor) {
+        this.photoAuthor = photoAuthor;
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -56,4 +73,7 @@ public class StoryBook {
         this.author = author;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

@@ -2,16 +2,11 @@ package com.nuttwarunyu.blankbook;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,12 +18,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -36,9 +29,9 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -65,10 +58,13 @@ public class AddStoryBookActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         linearLayout = (RelativeLayout) inflater.inflate(R.layout.activity_add_story_book, container, false);
+        Fabric.with(getActivity().getApplicationContext(), new Crashlytics());
+
         ParseUser parseUser = ParseUser.getCurrentUser();
         final String username = parseUser.getUsername();
+        final String curDate = setCurrentDate();
+        final ParseFile photoAuthor = parseUser.getParseFile("profileThumb");
 
-        Fabric.with(getActivity().getApplicationContext(), new Crashlytics());
         bindWidget();
 
         edtStory.addTextChangedListener(new TextWatcher() {
@@ -113,15 +109,16 @@ public class AddStoryBookActivity extends Fragment {
                 byte[] image = byteArrayOutputStream.toByteArray();
 
                 ParseFile file = new ParseFile("blankBook.png", image);
-                file.saveInBackground();
+                //file.saveInBackground();
 
                 ParseObject bookStory = new ParseObject("myBookTable");
                 bookStory.put("title", edtTitle.getText().toString());
                 bookStory.put("categories", edtCategories.getText().toString());
                 bookStory.put("story", edtStory.getText().toString());
                 bookStory.put("photoFile", file);
+                bookStory.put("photoAuthor",photoAuthor);
                 bookStory.put("author", username);
-
+                bookStory.put("currentdate", curDate);
 
                 bookStory.saveInBackground(new SaveCallback() {
                     @Override
@@ -142,6 +139,18 @@ public class AddStoryBookActivity extends Fragment {
         });
 
         return linearLayout;
+    }
+
+    private String setCurrentDate() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        StringBuilder currentDate = new StringBuilder().append(day).append("-").append(month + 1)
+                .append("-").append(year);
+
+        return String.valueOf(currentDate);
     }
 
     @Override

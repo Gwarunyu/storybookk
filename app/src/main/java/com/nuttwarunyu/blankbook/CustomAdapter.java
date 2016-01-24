@@ -62,12 +62,15 @@ public class CustomAdapter extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = mInflater.inflate(R.layout.story_feed, null);
+
             //Locate textView in storyFeed
             holder.title = (TextView) view.findViewById(R.id.story_title);
             holder.categories = (TextView) view.findViewById(R.id.story_categories);
             holder.contentThumbnail = (ImageView) view.findViewById(R.id.story_thumbnail);
             holder.author = (TextView) view.findViewById(R.id.story_author);
             holder.userThumbnail = (ImageView) view.findViewById(R.id.story_thumbnail_user);
+            holder.date = (TextView) view.findViewById(R.id.story_date);
+
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -76,8 +79,11 @@ public class CustomAdapter extends BaseAdapter {
         holder.title.setText(storyBooksList.get(position).getTitle());
         holder.categories.setText(storyBooksList.get(position).getCategories());
         holder.author.setText(storyBooksList.get(position).getAuthor());
+        holder.date.setText(storyBooksList.get(position).getDate());
+
         //set Image
         imageLoader.DisplayImage(storyBooksList.get(position).getPhotoFile(), holder.contentThumbnail);
+        imageLoader.DisplayImage(storyBooksList.get(position).getPhotoAuthor(), holder.userThumbnail);
 
 
         view.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +94,7 @@ public class CustomAdapter extends BaseAdapter {
                 intent.putExtra("categories", storyBooksList.get(position).getCategories());
                 intent.putExtra("story", storyBooksList.get(position).getStory());
                 intent.putExtra("photoFile", storyBooksList.get(position).getPhotoFile());
+                intent.putExtra("photoAuthor", storyBooksList.get(position).getPhotoAuthor());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
@@ -101,5 +108,6 @@ public class CustomAdapter extends BaseAdapter {
         TextView author;
         TextView categories;
         ImageView userThumbnail;
+        TextView date;
     }
 }

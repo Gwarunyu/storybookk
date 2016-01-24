@@ -17,13 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="#000000"
-            android:padding="1dp" />
+            android:padding="1dp"
+            android:contentDescription="@string/cover_book" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="ชื่อเรื่อง"
+            android:hint="@string/title_addbook"
             android:ems="10"
             android:gravity="center"
             android:background="#00000000"
@@ -45,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
-            android:hint="เนื้อหา"
+            android:hint="@string/des_addbook"
             android:id="@+id/add_edt_story"
             android:nestedScrollingEnabled="false"
             android:gravity="center"
@@ -57,7 +58,7 @@
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="บันทึก"
+            android:text="@string/save_addbook"
             android:id="@+id/add_button_save"
             android:layout_gravity="center_horizontal"/>
 

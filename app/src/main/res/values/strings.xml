@@ -4,10 +4,20 @@
     //FB ID
     <string name="fb_app_id">1704853149727291</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    //LogIn
+    <string name="username_login">username</string>
+    <string name="password_login">password</string>
+    <string name="login_btn">LOG IN</string>
+
+    //AddBook
+    <string name="save_addbook">บันทึก</string>
+    <string name="title_addbook">ชื่อเรื่อง</string>
+    <string name="des_addbook">เนื้อหา</string>
+    <string name="cover_book">cover book</string>
 
     ////ActionBar
     <string name="log_out">Log Out</string>
     <string name="profile">Profile</string>
+
 
 </resources>
