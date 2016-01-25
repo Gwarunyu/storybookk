@@ -14,7 +14,7 @@ public class MyPageViewAdapter extends FragmentPagerAdapter implements IconPager
     int PAGE_COUNT = 3;
 
     private final int[] ICON_INDICATOR = {R.drawable.com_facebook_button_icon, R.drawable.com_facebook_tooltip_black_topnub
-            , R.drawable.ic_launcher};
+            , R.drawable.logo};
     protected static final String[] PAGE_NAME = new String[]{"New Feed", "Editor Pick", "Add Content"};
 
     public MyPageViewAdapter(FragmentManager fm) {

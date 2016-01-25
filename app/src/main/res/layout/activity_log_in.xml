@@ -2,31 +2,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="#ff3eaff9"
+    android:background="#FFFFFF"
     android:paddingLeft="16dp"
+    android:paddingTop="50dp"
     android:paddingRight="16dp">
 
+    <ImageView
+        android:id="@+id/mProfileImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/logo"
+        />
+
     <LinearLayout
+        android:layout_below="@+id/mProfileImage"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="#ffffffff"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/mProfileImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="title"
-            android:textColor="#ff3eaff9"
-            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/login_username"
@@ -48,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="#ff3eaff9"
+            android:background="@color/colorPrimary"
             android:text="@string/login_btn"
             android:textColor="#ffffff"
             android:textSize="18sp" />
@@ -56,8 +54,8 @@
         <com.facebook.login.widget.LoginButton
             android:id="@+id/facebookLoginButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_height="match_parent"
+            />
 
     </LinearLayout>
 
@@ -70,6 +68,6 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="16dp"
         android:text="register"
-        android:textColor="#ffffff" />
+        android:textColor="#000000" />
 
 </RelativeLayout>
