@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class CustomAdapter extends BaseAdapter {
 
     Context context;
     private ViewHolder mViewHolder;
-    ImageLoader imageLoader;
+    //ImageLoader imageLoader;
     private LayoutInflater mInflater;
     private List<StoryBook> storyBooksList = null;
     private ArrayList<StoryBook> arrayList;
@@ -37,7 +38,7 @@ public class CustomAdapter extends BaseAdapter {
         mInflater = LayoutInflater.from(context);
         this.arrayList = new ArrayList<StoryBook>();
         this.arrayList.addAll(storyBooksList);
-        imageLoader = new ImageLoader(context);
+        //imageLoader = new ImageLoader(context);
     }
 
     @Override
@@ -82,9 +83,11 @@ public class CustomAdapter extends BaseAdapter {
         holder.date.setText(storyBooksList.get(position).getDate());
 
         //set Image
-        imageLoader.DisplayImage(storyBooksList.get(position).getPhotoFile(), holder.contentThumbnail);
-        imageLoader.DisplayImage(storyBooksList.get(position).getPhotoAuthor(), holder.userThumbnail);
+       // imageLoader.DisplayImage(storyBooksList.get(position).getPhotoFile(), holder.contentThumbnail);
+       // imageLoader.DisplayImage(storyBooksList.get(position).getPhotoAuthor(), holder.userThumbnail);
 
+        Glide.with(context).load(storyBooksList.get(position).getPhotoFile()).fitCenter().into(holder.contentThumbnail);
+        Glide.with(context).load(storyBooksList.get(position).getPhotoAuthor()).fitCenter().into(holder.userThumbnail);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

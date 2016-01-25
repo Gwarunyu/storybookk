@@ -50,7 +50,7 @@ public class MainViewPager extends AppCompatActivity {
         indicator = (TitlePageIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(viewPager);
 
-        getUserDetailsFromParse();
+        //getUserDetailsFromParse();
 
     }
 
@@ -96,5 +96,13 @@ public class MainViewPager extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("MainView OnDestroy","Clear Cache ");
+        FileCache fileCache = new FileCache(getApplicationContext());
+        fileCache.clear();
     }
 }

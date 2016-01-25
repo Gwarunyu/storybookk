@@ -65,6 +65,7 @@ public class AddStoryBookActivity extends Fragment {
         final String curDate = setCurrentDate();
         final ParseFile photoAuthor = parseUser.getParseFile("profileThumb");
 
+
         bindWidget();
 
         edtStory.addTextChangedListener(new TextWatcher() {

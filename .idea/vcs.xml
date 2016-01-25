@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="C:\Users\Dell-NB\AndroidStudioProjects\BlankBook\PaperTown" vcs="Git" />
-    <mapping directory="C:\Users\Dell-NB\AndroidStudioProjects\BlankBook\storybookk" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PaperTown" vcs="" />
+    <mapping directory="$PROJECT_DIR$/storybookk" vcs="" />
   </component>
 </project>

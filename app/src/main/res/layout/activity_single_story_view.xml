@@ -76,6 +76,13 @@
                     android:text="Categories"
                     android:textSize="15dp" />
 
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/imgPhotoUser"
+                    />
+
                 <TextView
                     android:id="@+id/single_story"
                     android:layout_width="match_parent"
