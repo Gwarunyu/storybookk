@@ -8,6 +8,8 @@
     <string name="username_login">username</string>
     <string name="password_login">password</string>
     <string name="login_btn">LOG IN</string>
+    <string name="signIn_fb">Sign in with Facebook</string>
+    <string name="signIn_avang">Sign in with AVANG</string>
 
     //AddBook
     <string name="save_addbook">บันทึก</string>

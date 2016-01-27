@@ -2,8 +2,14 @@
 <resources>
     <color name="colorPrimary">#3fb5a3</color>
     <color name="colorPrimaryDark">#306058</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#fffc60</color>
 
+
+    <color name="facebook">#3b5998</color>
     <color name="title">#000000</color>
     <color name="story">#3b3638</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
 </resources>

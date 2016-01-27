@@ -7,9 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -57,27 +60,24 @@ import io.fabric.sdk.android.Fabric;
 
 public class LogInActivity extends AppCompatActivity {
 
-    Button loginBtn;
-    EditText loginUsername, loginPassword;
-    TextView loginRegister;
+    //Button loginBtn;
+    //EditText loginUsername, loginPassword;
+    Button loginRegister;
     Permission permission;
     ParseUser parseUser;
     ImageView mProfileImage;
     String email, name;
+    TextInputLayout inputUsername, inputPassword;
 
     private void bindWidget() {
-        loginBtn = (Button) findViewById(R.id.login_button);
-        loginPassword = (EditText) findViewById(R.id.login_password);
-        loginUsername = (EditText) findViewById(R.id.login_username);
-        loginRegister = (TextView) findViewById(R.id.login_register);
+
+        loginRegister = (Button) findViewById(R.id.login_register);
         mProfileImage = (ImageView) findViewById(R.id.mProfileImage);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
 
         Fabric.with(getApplicationContext().getApplicationContext(), new Crashlytics());
@@ -86,7 +86,7 @@ public class LogInActivity extends AppCompatActivity {
 
         bindWidget();
 
-        LoginButton fbLoginButton = (LoginButton) findViewById(R.id.facebookLoginButton);
+        Button fbLoginBtn = (Button) findViewById(R.id.fb_login_btn);
 
         if (ParseUser.getCurrentUser() != null) {
             parseUser = ParseUser.getCurrentUser();
@@ -95,21 +95,21 @@ public class LogInActivity extends AppCompatActivity {
         }
 
 
-        fbLoginButton.setOnClickListener(new View.OnClickListener() {
+        fbLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openFacebookLogIn();
             }
         });
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        /*loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 checkLogin();
                 Log.d("LogInActivity ", " ParseUser.logInInBackground");
             }
-        });
+        });*/
 
         loginRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,10 +121,15 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
-    private void checkLogin() {
+   /* private void checkLogin() {
 
         String username = loginUsername.getText().toString().trim().toLowerCase();
         String password = loginPassword.getText().toString().trim();
+
+        if (username.equals("") || password.equals("")){
+            inputUsername.setError(null);
+            inputPassword.setError(null);
+        }
 
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
@@ -136,7 +141,7 @@ public class LogInActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 
     private void openFacebookLogIn() {
         ParseFacebookUtils.logInWithReadPermissionsInBackground(LogInActivity.this,
@@ -153,7 +158,7 @@ public class LogInActivity extends AppCompatActivity {
                             GoToMainViewPager();
                         } else {
                             Log.d("MyApp", "User logged in through Facebook!");
-                            getUserDetailsFromParse();
+                            //getUserDetailsFromParse();
                             GoToMainViewPager();
                         }
                     }

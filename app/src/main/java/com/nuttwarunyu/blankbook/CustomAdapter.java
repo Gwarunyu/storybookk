@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.opengl.Matrix;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapResource;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.parse.ParseFile;
 
 import java.util.ArrayList;
@@ -83,11 +90,14 @@ public class CustomAdapter extends BaseAdapter {
         holder.date.setText(storyBooksList.get(position).getDate());
 
         //set Image
-       // imageLoader.DisplayImage(storyBooksList.get(position).getPhotoFile(), holder.contentThumbnail);
-       // imageLoader.DisplayImage(storyBooksList.get(position).getPhotoAuthor(), holder.userThumbnail);
+        // imageLoader.DisplayImage(storyBooksList.get(position).getPhotoFile(), holder.contentThumbnail);
+        // imageLoader.DisplayImage(storyBooksList.get(position).getPhotoAuthor(), holder.userThumbnail);
 
-        Glide.with(context).load(storyBooksList.get(position).getPhotoFile()).fitCenter().into(holder.contentThumbnail);
-        Glide.with(context).load(storyBooksList.get(position).getPhotoAuthor()).fitCenter().into(holder.userThumbnail);
+        Glide.with(context).load(storyBooksList.get(position)
+                .getPhotoFile()).fitCenter().into(holder.contentThumbnail);
+
+        Glide.with(context).load(storyBooksList.get(position)
+                .getPhotoAuthor()).into(holder.userThumbnail);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
