@@ -26,6 +26,8 @@ import com.parse.ParseFile;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by Dell-NB on 22/12/2558.
  */
@@ -97,7 +99,7 @@ public class CustomAdapter extends BaseAdapter {
                 .getPhotoFile()).fitCenter().into(holder.contentThumbnail);
 
         Glide.with(context).load(storyBooksList.get(position)
-                .getPhotoAuthor()).into(holder.userThumbnail);
+                .getPhotoAuthor()).bitmapTransform(new CropCircleTransformation(context)).into(holder.userThumbnail);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
