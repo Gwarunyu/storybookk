@@ -1,8 +1,12 @@
 package com.nuttwarunyu.blankbook;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -45,9 +49,11 @@ public class AddStoryBookActivity extends AppCompatActivity {
     final int REQUEST_IMAGE_SELECTOR = 1;
     RadioGroup radioGroup;
     RadioButton radioButtonMyExp, radioButtonUnExp;
-    String username, curDate;
+    String username, curDate, titleSave, storySave;
     ParseFile photoAuthor;
     ProgressDialog progressDialog;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     void bindWidget() {
         imgPhoto = (ImageView) findViewById(R.id.imgPhoto);
@@ -72,6 +78,15 @@ public class AddStoryBookActivity extends AppCompatActivity {
 
         bindWidget();
 
+        sharedPreferences = getSharedPreferences("saveDraft", Context.MODE_PRIVATE);
+        titleSave = sharedPreferences.getString("titleSave", "");
+        storySave = sharedPreferences.getString("storySave", "");
+
+        edtTitle.setText(titleSave);
+        edtStory.setText(storySave);
+
+        Log.d("onCreate", "titleSave : " + titleSave + " storySave : " + storySave);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -86,10 +101,12 @@ public class AddStoryBookActivity extends AppCompatActivity {
 
         edtStory.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -110,11 +127,59 @@ public class AddStoryBookActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        titleSave = edtTitle.getText().toString();
+        storySave = edtStory.getText().toString();
+        Log.d("onPause", "titleSave : " + titleSave + " storySave : " + storySave);
+        saveDraft();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        titleSave = edtTitle.getText().toString();
+        storySave = edtStory.getText().toString();
+        Log.d("onDestroy", "titleSave : " + titleSave + " storySave : " + storySave);
+        saveDraft();
+    }
+
+    @Override
+    public void onBackPressed() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Do you wanna Draft your story");
+        builder.setMessage("Are you sure you want to Exit?");
+        builder.setIcon(R.drawable.logo);
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                edtStory.setText("");
+                edtTitle.setText("");
+                AddStoryBookActivity.super.onBackPressed();
+            }
+        });
+        builder.create().show();
+    }
+
+    private void saveDraft() {
+        editor = sharedPreferences.edit();
+        editor.putString("titleSave", titleSave);
+        editor.putString("storySave", storySave);
+        Log.d("SaveDraft", "titleSave : " + titleSave + " storySave : " + storySave);
+        editor.apply();
+    }
+
     private void saveStory() {
         if (bitmap == null) {
             bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.logo);
         }
-
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] image = byteArrayOutputStream.toByteArray();
@@ -142,6 +207,7 @@ public class AddStoryBookActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private String setCurrentDate() {
         final Calendar calendar = Calendar.getInstance();
@@ -188,6 +254,11 @@ public class AddStoryBookActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_btn:
+                if (edtTitle.getText().toString().trim().length() == 0 || edtStory.getText().toString().trim().length() == 0) {
+
+                    Toast.makeText(getApplicationContext(), "Please write your story", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 new saveStoryBtn().execute();
                 return true;
             default:
@@ -220,6 +291,7 @@ public class AddStoryBookActivity extends AppCompatActivity {
             edtTitle.setText("");
             bitmap = null;
             progressDialog.dismiss();
+            sharedPreferences.edit().clear().apply();
         }
     }
 }

@@ -9,18 +9,14 @@ import com.viewpagerindicator.IconPagerAdapter;
 /**
  * Created by Dell-NB on 28/12/2558.
  */
-public class MyPageViewAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
+public class MyPageViewAdapter extends FragmentPagerAdapter {
 
     int PAGE_COUNT = 2;
-
-    private final int[] ICON_INDICATOR = {R.drawable.com_facebook_button_icon, R.drawable.com_facebook_tooltip_black_topnub
-            , R.drawable.logo};
-    protected static final String[] PAGE_NAME = new String[]{"New Feed", "Editor Pick"};
+    protected static final String[] PAGE_NAME = new String[]{"บทความ", "เรื่องที่เขียน"};
 
     public MyPageViewAdapter(FragmentManager fm) {
         super(fm);
     }
-
 
     @Override
     public Fragment getItem(int position) {
@@ -32,18 +28,12 @@ public class MyPageViewAdapter extends FragmentPagerAdapter implements IconPager
             return new MyBookHistory();
         }
         return null;
-
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
 
         return MyPageViewAdapter.PAGE_NAME[position % PAGE_NAME.length];
-    }
-
-    @Override
-    public int getIconResId(int index) {
-        return ICON_INDICATOR[index % ICON_INDICATOR.length];
     }
 
     @Override

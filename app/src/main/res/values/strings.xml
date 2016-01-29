@@ -21,5 +21,8 @@
     <string name="log_out">Log Out</string>
     <string name="profile">Profile</string>
 
+    //Indicator
+    <string name="newF_feed">บทความ</string>
+    <string name="my_story">เรื่องที่เขียน</string>
 
 </resources>

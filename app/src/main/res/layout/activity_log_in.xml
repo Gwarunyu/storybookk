@@ -2,57 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:layout_weight="1">
 
         <ImageView
             android:id="@+id/mProfileImage"
             android:layout_width="150dp"
-            android:layout_centerInParent="true"
             android:layout_height="150dp"
+            android:layout_centerInParent="true"
             android:background="@drawable/logo" />
 
     </RelativeLayout>
 
 
     <LinearLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp">
-
+        android:padding="10dp">
 
 
         <Button
             android:id="@+id/fb_login_btn"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:drawableRight="@drawable/com_facebook_button_icon"
-            android:textColor="@color/white"
             android:background="@color/facebook"
-            android:text="@string/signIn_fb"
+            android:drawableRight="@drawable/com_facebook_button_icon"
             android:gravity="left|center_vertical"
-           />
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/signIn_fb"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/login_register"
             android:layout_width="match_parent"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
             android:layout_height="60dp"
             android:gravity="left|center_vertical"
-            android:textColor="@color/black"
-            android:text="@string/signIn_avang" />
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@color/colorAccent2"
+            android:text="@string/signIn_avang"
+            android:textColor="@color/black" />
+
+
 
     </LinearLayout>
 
