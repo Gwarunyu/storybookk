@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerPass2 = (EditText) findViewById(R.id.regis_password2);
         registerPhoto = (ImageView) findViewById(R.id.regis_photo);
 
-        registerPhoto.setImageResource(R.drawable.face_smile);
+        registerPhoto.setImageResource(R.drawable.logo);
 
         registerPhoto.setOnClickListener(new View.OnClickListener() {
             @Override

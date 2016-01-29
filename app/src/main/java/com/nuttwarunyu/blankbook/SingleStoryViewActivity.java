@@ -25,22 +25,11 @@ public class SingleStoryViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_story_view);
 
-        photoUser = (ImageView) findViewById(R.id.imgPhotoUser);
 
         TextView txtTitle = (TextView) findViewById(R.id.single_title);
         TextView txtCategories = (TextView) findViewById(R.id.single_categories);
         TextView txtStory = (TextView) findViewById(R.id.single_story);
         ImageView imgPhotoFile = (ImageView) findViewById(R.id.main_backdrop);
-
-        ParseUser parseUser = ParseUser.getCurrentUser();
-        final ParseFile photoAuthor = parseUser.getParseFile("profileThumb");
-
-        photoAuthor.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] data, ParseException e) {
-                Glide.with(getApplicationContext()).load(data).centerCrop().into(photoUser);
-            }
-        });
 
         Intent intent = getIntent();
         singleTitle = intent.getStringExtra("title");
@@ -53,6 +42,5 @@ public class SingleStoryViewActivity extends AppCompatActivity {
         txtStory.setText(singleStory);
 
         Glide.with(getApplicationContext()).load(singlePhoto).centerCrop().into(imgPhotoFile);
-     //   imageLoader.DisplayImage(singlePhoto, imgPhotoFile);
     }
 }

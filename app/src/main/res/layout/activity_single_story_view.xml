@@ -31,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/face_smile"
+                android:src="@drawable/logo"
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
@@ -75,13 +75,6 @@
                     android:layout_height="wrap_content"
                     android:text="Categories"
                     android:textSize="15dp" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@color/colorPrimary"
-                    android:id="@+id/imgPhotoUser"
-                    />
 
                 <TextView
                     android:id="@+id/single_story"

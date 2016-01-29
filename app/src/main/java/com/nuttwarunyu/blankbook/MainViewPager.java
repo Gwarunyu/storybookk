@@ -27,7 +27,6 @@ public class MainViewPager extends AppCompatActivity {
 
     ViewPager viewPager;
     ParseUser parseUser;
-    ImageView mProfileImage;
     TitlePageIndicator indicator;
 
     @Override
@@ -37,7 +36,7 @@ public class MainViewPager extends AppCompatActivity {
         Fabric.with(getApplicationContext(), new Crashlytics());
         setContentView(R.layout.main_view_pager);
 
-        mProfileImage = (ImageView) findViewById(R.id.profile_image_view);
+
 
         parseUser = ParseUser.getCurrentUser();
         if (ParseUser.getCurrentUser() != null) {
@@ -59,7 +58,7 @@ public class MainViewPager extends AppCompatActivity {
             ParseFile file = parseUser.getParseFile("profileThumb");
             byte[] data = file.getData();
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-            mProfileImage.setImageBitmap(bitmap);
+           // mProfileImage.setImageBitmap(bitmap);
 
         } catch (ParseException e) {
             e.printStackTrace();

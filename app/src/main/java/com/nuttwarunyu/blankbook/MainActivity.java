@@ -1,27 +1,19 @@
 package com.nuttwarunyu.blankbook;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.support.v4.app.Fragment;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -39,9 +31,12 @@ public class MainActivity extends Fragment implements SwipeRefreshLayout.OnRefre
     private List<StoryBook> storyBookList = null;
     SwipeRefreshLayout swipeRefreshLayout;
 
+    boolean loadingMore;
+    private int limit = 10;
 
     @Nullable
     @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         swipeRefreshLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.activity_main, container, false);
@@ -50,7 +45,7 @@ public class MainActivity extends Fragment implements SwipeRefreshLayout.OnRefre
 
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.GREEN);
-        swipeRefreshLayout.setProgressViewOffset(false,0,150);
+        swipeRefreshLayout.setProgressViewOffset(false, 0, 150);
 
         new TaskProcess().execute();
 
@@ -61,6 +56,13 @@ public class MainActivity extends Fragment implements SwipeRefreshLayout.OnRefre
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int lastInScreen = firstVisibleItem + visibleItemCount;
+
+                if (lastInScreen == totalItemCount && totalItemCount != 0) {
+
+                }
+
+
                 boolean enable = false;
                 if (listView != null && listView.getChildCount() > 0) {
                     boolean firstItemVisible = listView.getFirstVisiblePosition() == 0;
@@ -79,13 +81,60 @@ public class MainActivity extends Fragment implements SwipeRefreshLayout.OnRefre
         new RefreshProcess().execute();
     }
 
+    private class RefreshProcess extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            storyBookList = new ArrayList<StoryBook>();
+
+            try {
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("myBookTable");
+                query.orderByDescending("createdAt");
+                parseObjectList = query.find();
+
+                for (ParseObject storyData : parseObjectList) {
+
+                    ParseFile image = (ParseFile) storyData.get("photoFile");
+                    ParseFile photoAuthor = (ParseFile) storyData.get("photoAuthor");
+
+                    StoryBook storyBook = new StoryBook();
+                    storyBook.setStory((String) storyData.get("story"));
+                    storyBook.setTitle((String) storyData.get("title"));
+                    storyBook.setCategories((String) storyData.get("categories"));
+                    storyBook.setPhotoFile(image.getUrl());
+                    storyBook.setPhotoAuthor(photoAuthor.getUrl());
+                    storyBook.setAuthor((String) storyData.get("author"));
+                    storyBook.setDate((String) storyData.get("currentdate"));
+                    storyBookList.add(storyBook);
+                }
+            } catch (ParseException e) {
+                Log.e("doInBackground", "Error");
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            customAdapter = new CustomAdapter(getActivity().getApplicationContext(), storyBookList);
+            listView.setAdapter(customAdapter);
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
     private class TaskProcess extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setTitle("AVANG Loading");
+            progressDialog.setTitle("AVANG");
             progressDialog.setMessage("L o a d i n g. .");
             progressDialog.setIndeterminate(false);
             progressDialog.show();
@@ -132,49 +181,5 @@ public class MainActivity extends Fragment implements SwipeRefreshLayout.OnRefre
         }
     }
 
-    private class RefreshProcess extends AsyncTask<Void, Void, Void> {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            storyBookList = new ArrayList<StoryBook>();
-
-            try {
-                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("myBookTable");
-                query.orderByDescending("createdAt");
-                parseObjectList = query.find();
-                for (ParseObject storyData : parseObjectList) {
-
-                    ParseFile image = (ParseFile) storyData.get("photoFile");
-                    ParseFile photoAuthor = (ParseFile) storyData.get("photoAuthor");
-
-                    StoryBook storyBook = new StoryBook();
-                    storyBook.setStory((String) storyData.get("story"));
-                    storyBook.setTitle((String) storyData.get("title"));
-                    storyBook.setCategories((String) storyData.get("categories"));
-                    storyBook.setPhotoFile(image.getUrl());
-                    storyBook.setPhotoAuthor(photoAuthor.getUrl());
-                    storyBook.setAuthor((String) storyData.get("author"));
-                    storyBook.setDate((String) storyData.get("currentdate"));
-                    storyBookList.add(storyBook);
-                }
-            } catch (ParseException e) {
-                Log.e("doInBackground", "Error");
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            customAdapter = new CustomAdapter(getActivity().getApplicationContext(), storyBookList);
-            listView.setAdapter(customAdapter);
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
 }

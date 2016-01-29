@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -37,20 +39,24 @@ import io.fabric.sdk.android.Fabric;
 
 public class AddStoryBookActivity extends Fragment {
 
-    EditText edtTitle, edtStory, edtCategories;
+    EditText edtTitle, edtStory;
     ImageView imgPhoto;
     Button addButtonSave;
     Bitmap bitmap;
+    String categories = "ประสบการณ์";
     private RelativeLayout linearLayout;
     final int REQUEST_IMAGE_SELECTOR = 1;
+    RadioGroup radioGroup;
+    RadioButton radioButtonMyExp, radioButtonUnExp;
 
     void bindWidget() {
         addButtonSave = (Button) linearLayout.findViewById(R.id.add_button_save);
         imgPhoto = (ImageView) linearLayout.findViewById(R.id.imgPhoto);
-        edtCategories = (EditText) linearLayout.findViewById(R.id.add_edt_cate);
         edtTitle = (EditText) linearLayout.findViewById(R.id.add_edt_title);
         edtStory = (EditText) linearLayout.findViewById(R.id.add_edt_story);
-
+        radioGroup = (RadioGroup) linearLayout.findViewById(R.id.radioGroup);
+        radioButtonMyExp = (RadioButton) linearLayout.findViewById(R.id.radio_myExp);
+        radioButtonUnExp = (RadioButton) linearLayout.findViewById(R.id.radio_unExp);
     }
 
     @Nullable
@@ -65,8 +71,20 @@ public class AddStoryBookActivity extends Fragment {
         final String curDate = setCurrentDate();
         final ParseFile photoAuthor = parseUser.getParseFile("profileThumb");
 
-
         bindWidget();
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radio_myExp)
+                {
+                    categories = "ประสบการณ์";
+                }
+                if (checkedId == R.id.radio_unExp){
+                    categories = "เรื่องเล่า";
+                }
+            }
+        });
 
         edtStory.addTextChangedListener(new TextWatcher() {
             @Override
@@ -97,12 +115,13 @@ public class AddStoryBookActivity extends Fragment {
             }
         });
 
+
         addButtonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (bitmap == null) {
-                    bitmap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.face_smile);
+                    bitmap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.logo);
                 }
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -110,14 +129,13 @@ public class AddStoryBookActivity extends Fragment {
                 byte[] image = byteArrayOutputStream.toByteArray();
 
                 ParseFile file = new ParseFile("blankBook.png", image);
-                //file.saveInBackground();
 
                 ParseObject bookStory = new ParseObject("myBookTable");
                 bookStory.put("title", edtTitle.getText().toString());
-                bookStory.put("categories", edtCategories.getText().toString());
+                bookStory.put("categories", categories);
                 bookStory.put("story", edtStory.getText().toString());
                 bookStory.put("photoFile", file);
-                bookStory.put("photoAuthor",photoAuthor);
+                bookStory.put("photoAuthor", photoAuthor);
                 bookStory.put("author", username);
                 bookStory.put("currentdate", curDate);
 
@@ -127,7 +145,6 @@ public class AddStoryBookActivity extends Fragment {
                         if (e == null) {
                             edtStory.setText("");
                             edtTitle.setText("");
-                            edtCategories.setText("");
                             bitmap = null;
                             Toast.makeText(getActivity().getApplicationContext(), "Complete", Toast.LENGTH_SHORT).show();
                         } else {
