@@ -11,11 +11,11 @@ import com.viewpagerindicator.IconPagerAdapter;
  */
 public class MyPageViewAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
 
-    int PAGE_COUNT = 3;
+    int PAGE_COUNT = 2;
 
     private final int[] ICON_INDICATOR = {R.drawable.com_facebook_button_icon, R.drawable.com_facebook_tooltip_black_topnub
             , R.drawable.logo};
-    protected static final String[] PAGE_NAME = new String[]{"New Feed", "Editor Pick", "Add Content"};
+    protected static final String[] PAGE_NAME = new String[]{"New Feed", "Editor Pick"};
 
     public MyPageViewAdapter(FragmentManager fm) {
         super(fm);
@@ -27,9 +27,6 @@ public class MyPageViewAdapter extends FragmentPagerAdapter implements IconPager
 
         if (position == 0) {
             return new MainActivity();
-        }
-        if (position == 2) {
-            return new AddStoryBookActivity();
         }
         if (position == 1) {
             return new MyBookHistory();

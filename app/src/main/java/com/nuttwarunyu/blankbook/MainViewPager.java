@@ -36,8 +36,6 @@ public class MainViewPager extends AppCompatActivity {
         Fabric.with(getApplicationContext(), new Crashlytics());
         setContentView(R.layout.main_view_pager);
 
-
-
         parseUser = ParseUser.getCurrentUser();
         if (ParseUser.getCurrentUser() != null) {
             Toast.makeText(MainViewPager.this, "Welcome " + parseUser.toString(), Toast.LENGTH_SHORT).show();
@@ -58,7 +56,7 @@ public class MainViewPager extends AppCompatActivity {
             ParseFile file = parseUser.getParseFile("profileThumb");
             byte[] data = file.getData();
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-           // mProfileImage.setImageBitmap(bitmap);
+            // mProfileImage.setImageBitmap(bitmap);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -89,8 +87,8 @@ public class MainViewPager extends AppCompatActivity {
 
                 return true;
             case R.id.action_profile:
-                Toast.makeText(MainViewPager.this, "case R.id.action_profile:", Toast.LENGTH_SHORT).show();
-                return true;
+                Intent intent = new Intent(getApplicationContext(), AddStoryBookActivity.class);
+                startActivity(intent);
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -100,7 +98,7 @@ public class MainViewPager extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("MainView OnDestroy","Clear Cache ");
+        Log.d("MainView OnDestroy", "Clear Cache ");
         FileCache fileCache = new FileCache(getApplicationContext());
         fileCache.clear();
     }

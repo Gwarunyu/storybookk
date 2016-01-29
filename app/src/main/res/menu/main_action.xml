@@ -4,7 +4,8 @@
 
     <item
         android:id="@+id/action_profile"
-        android:title="@string/profile"
+        android:title="Add EXP"
+        android:icon="@drawable/newfile"
         app:showAsAction="ifRoom" />
     <!-- Settings, should always be in the overflow -->
     <item

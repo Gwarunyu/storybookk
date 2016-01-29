@@ -1,26 +1,25 @@
 package com.nuttwarunyu.blankbook;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
-import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -37,50 +36,49 @@ import java.util.Calendar;
 
 import io.fabric.sdk.android.Fabric;
 
-public class AddStoryBookActivity extends Fragment {
+public class AddStoryBookActivity extends AppCompatActivity {
 
     EditText edtTitle, edtStory;
     ImageView imgPhoto;
-    Button addButtonSave;
     Bitmap bitmap;
     String categories = "ประสบการณ์";
-    private RelativeLayout linearLayout;
     final int REQUEST_IMAGE_SELECTOR = 1;
     RadioGroup radioGroup;
     RadioButton radioButtonMyExp, radioButtonUnExp;
+    String username, curDate;
+    ParseFile photoAuthor;
+    ProgressDialog progressDialog;
 
     void bindWidget() {
-        addButtonSave = (Button) linearLayout.findViewById(R.id.add_button_save);
-        imgPhoto = (ImageView) linearLayout.findViewById(R.id.imgPhoto);
-        edtTitle = (EditText) linearLayout.findViewById(R.id.add_edt_title);
-        edtStory = (EditText) linearLayout.findViewById(R.id.add_edt_story);
-        radioGroup = (RadioGroup) linearLayout.findViewById(R.id.radioGroup);
-        radioButtonMyExp = (RadioButton) linearLayout.findViewById(R.id.radio_myExp);
-        radioButtonUnExp = (RadioButton) linearLayout.findViewById(R.id.radio_unExp);
+        imgPhoto = (ImageView) findViewById(R.id.imgPhoto);
+        edtTitle = (EditText) findViewById(R.id.add_edt_title);
+        edtStory = (EditText) findViewById(R.id.add_edt_story);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioButtonMyExp = (RadioButton) findViewById(R.id.radio_myExp);
+        radioButtonUnExp = (RadioButton) findViewById(R.id.radio_unExp);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_story_book);
 
-        linearLayout = (RelativeLayout) inflater.inflate(R.layout.activity_add_story_book, container, false);
-        Fabric.with(getActivity().getApplicationContext(), new Crashlytics());
+        Fabric.with(getApplicationContext(), new Crashlytics());
 
         ParseUser parseUser = ParseUser.getCurrentUser();
-        final String username = parseUser.getUsername();
-        final String curDate = setCurrentDate();
-        final ParseFile photoAuthor = parseUser.getParseFile("profileThumb");
+        username = parseUser.getUsername();
+        curDate = setCurrentDate();
+        photoAuthor = parseUser.getParseFile("profileThumb");
 
         bindWidget();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.radio_myExp)
-                {
+                if (checkedId == R.id.radio_myExp) {
                     categories = "ประสบการณ์";
                 }
-                if (checkedId == R.id.radio_unExp){
+                if (checkedId == R.id.radio_unExp) {
                     categories = "เรื่องเล่า";
                 }
             }
@@ -88,14 +86,10 @@ public class AddStoryBookActivity extends Fragment {
 
         edtStory.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -114,49 +108,39 @@ public class AddStoryBookActivity extends Fragment {
                 startActivityForResult(intent, REQUEST_IMAGE_SELECTOR);
             }
         });
+    }
 
+    private void saveStory() {
+        if (bitmap == null) {
+            bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.logo);
+        }
 
-        addButtonSave.setOnClickListener(new View.OnClickListener() {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] image = byteArrayOutputStream.toByteArray();
+
+        ParseFile file = new ParseFile("blankBook.png", image);
+
+        ParseObject bookStory = new ParseObject("myBookTable");
+        bookStory.put("title", edtTitle.getText().toString());
+        bookStory.put("categories", categories);
+        bookStory.put("story", edtStory.getText().toString());
+        bookStory.put("photoFile", file);
+        bookStory.put("photoAuthor", photoAuthor);
+        bookStory.put("author", username);
+        bookStory.put("currentdate", curDate);
+
+        bookStory.saveInBackground(new SaveCallback() {
             @Override
-            public void onClick(View v) {
-
-                if (bitmap == null) {
-                    bitmap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.logo);
+            public void done(ParseException e) {
+                if (e == null) {
+                    Toast.makeText(getApplicationContext(), "Complete", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.e("Parse Error", e.toString());
+                    Toast.makeText(getApplicationContext(), "Oop! SomethingWrong", Toast.LENGTH_SHORT).show();
                 }
-
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] image = byteArrayOutputStream.toByteArray();
-
-                ParseFile file = new ParseFile("blankBook.png", image);
-
-                ParseObject bookStory = new ParseObject("myBookTable");
-                bookStory.put("title", edtTitle.getText().toString());
-                bookStory.put("categories", categories);
-                bookStory.put("story", edtStory.getText().toString());
-                bookStory.put("photoFile", file);
-                bookStory.put("photoAuthor", photoAuthor);
-                bookStory.put("author", username);
-                bookStory.put("currentdate", curDate);
-
-                bookStory.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            edtStory.setText("");
-                            edtTitle.setText("");
-                            bitmap = null;
-                            Toast.makeText(getActivity().getApplicationContext(), "Complete", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.e("Parse Error", e.toString());
-                            Toast.makeText(getActivity().getApplicationContext(), "Oop! SomethingWrong", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
             }
         });
-
-        return linearLayout;
     }
 
     private String setCurrentDate() {
@@ -177,7 +161,7 @@ public class AddStoryBookActivity extends Fragment {
         if (requestCode == REQUEST_IMAGE_SELECTOR || resultCode == Activity.RESULT_OK) {
             if (bitmap == null) {
                 try {
-                    InputStream stream = getActivity().getApplicationContext().getContentResolver().openInputStream(data.getData());
+                    InputStream stream = getApplicationContext().getContentResolver().openInputStream(data.getData());
                     bitmap = BitmapFactory.decodeStream(stream);
                     assert stream != null;
                     stream.close();
@@ -187,9 +171,55 @@ public class AddStoryBookActivity extends Fragment {
                     e.printStackTrace();
                 }
             } else
-                Toast.makeText(getActivity().getApplicationContext(), "Bitmap Not null", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Bitmap Not null", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getActivity().getApplicationContext(), "ActivityResult Not OK", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "ActivityResult Not OK", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.add_book, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save_btn:
+                new saveStoryBtn().execute();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private class saveStoryBtn extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(AddStoryBookActivity.this);
+            progressDialog.setTitle("AVANG");
+            progressDialog.setMessage("Saving. .");
+            progressDialog.setIndeterminate(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            saveStory();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            edtStory.setText("");
+            edtTitle.setText("");
+            bitmap = null;
+            progressDialog.dismiss();
         }
     }
 }

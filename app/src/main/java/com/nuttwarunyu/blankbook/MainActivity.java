@@ -138,7 +138,6 @@ public class MainActivity extends Fragment implements SwipeRefreshLayout.OnRefre
             progressDialog.setMessage("L o a d i n g. .");
             progressDialog.setIndeterminate(false);
             progressDialog.show();
-
         }
 
         @Override

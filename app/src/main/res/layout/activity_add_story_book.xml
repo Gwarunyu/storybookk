@@ -1,76 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/activity_vertical_margin">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/layout_edt"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/add_button_save"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="#000000"
-            android:contentDescription="@string/cover_book"
-            android:padding="1dp" />
-
-        <EditText
-            android:id="@+id/add_edt_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="#00000000"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="@string/title_addbook"
-            android:inputType="textPersonName" />
+            android:orientation="vertical">
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/imgPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="#000000"
+                android:contentDescription="@string/cover_book"
+                android:padding="1dp" />
 
-            <RadioButton
-                android:id="@+id/radio_myExp"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/add_edt_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="ประสบการณ์" />
+                android:layout_marginBottom="16dp"
+                android:background="#00000000"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/title_addbook"
+                android:inputType="textPersonName" />
 
-            <RadioButton
-                android:id="@+id/radio_unExp"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="เรื่องเล่า" />
-        </RadioGroup>
+                android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/add_edt_story"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:autoText="true"
-            android:background="#00000000"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="@string/des_addbook"
-            android:nestedScrollingEnabled="false" />
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/radio_myExp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="ประสบการณ์" />
 
-    <Button
-        android:id="@+id/add_button_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/save_addbook" />
+                <RadioButton
+                    android:id="@+id/radio_unExp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="เรื่องเล่า" />
+            </RadioGroup>
 
-</RelativeLayout>
+                <EditText
+                    android:id="@+id/add_edt_story"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:background="#00000000"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="@string/des_addbook" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
