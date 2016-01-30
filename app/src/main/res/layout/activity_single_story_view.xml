@@ -66,24 +66,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Title"
+                    android:textStyle="bold"
                     android:textColor="@color/title"
-                    android:textSize="30dp" />
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/single_categories"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="italic"
                     android:text="Categories"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
-                <TextView
+                <com.nuttwarunyu.blankbook.CustomFont
                     android:id="@+id/single_story"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="30dp"
                     android:text="Story"
                     android:textColor="@color/story"
-                    android:textSize="20dp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

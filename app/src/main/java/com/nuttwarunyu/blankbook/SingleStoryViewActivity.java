@@ -1,6 +1,7 @@
 package com.nuttwarunyu.blankbook;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,13 +19,11 @@ public class SingleStoryViewActivity extends AppCompatActivity {
 
     ImageView photoUser;
     String singleTitle, singleStory, singleCategories, singlePhoto;
-   // ImageLoader imageLoader = new ImageLoader(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_story_view);
-
 
         TextView txtTitle = (TextView) findViewById(R.id.single_title);
         TextView txtCategories = (TextView) findViewById(R.id.single_categories);

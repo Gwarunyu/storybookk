@@ -25,4 +25,8 @@
     <string name="newF_feed">บทความ</string>
     <string name="my_story">เรื่องที่เขียน</string>
 
+    //
+    <string name="internet_not_connected_title">การเชื่อมต่อมีข้อผิดพลาด</string>
+    <string name="internet_not_connected_message">กรุณาเชื่อมต่อ Internet</string>
+
 </resources>

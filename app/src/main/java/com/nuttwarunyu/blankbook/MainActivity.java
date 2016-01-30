@@ -1,7 +1,11 @@
 package com.nuttwarunyu.blankbook;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -31,12 +35,14 @@ public class MainActivity extends Fragment implements SwipeRefreshLayout.OnRefre
     private List<StoryBook> storyBookList = null;
     SwipeRefreshLayout swipeRefreshLayout;
 
-    boolean loadingMore;
-    private int limit = 10;
+
+    public boolean isConnectingToInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getActiveNetworkInfo() != null;
+    }
 
     @Nullable
     @Override
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         swipeRefreshLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.activity_main, container, false);
@@ -47,7 +53,9 @@ public class MainActivity extends Fragment implements SwipeRefreshLayout.OnRefre
         swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.GREEN);
         swipeRefreshLayout.setProgressViewOffset(false, 0, 150);
 
-        new TaskProcess().execute();
+        if (!isConnectingToInternet()) {
+            showAlertDialog();
+        } else new TaskProcess().execute();
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -74,6 +82,14 @@ public class MainActivity extends Fragment implements SwipeRefreshLayout.OnRefre
         });
 
         return swipeRefreshLayout;
+    }
+
+    public void showAlertDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle(R.string.internet_not_connected_title);
+        alertDialog.setMessage("กรุณาเชื่อมต่อ Internet");
+        alertDialog.setIcon(R.drawable.logo);
+        alertDialog.show();
     }
 
     @Override

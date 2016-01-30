@@ -1,6 +1,9 @@
 package com.nuttwarunyu.blankbook;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,6 +33,11 @@ public class MyBookHistory extends Fragment {
     String author;
     Button fbLoginAgain, avangLoginAgain;
 
+    public boolean isConnectingToInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getActiveNetworkInfo() != null;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,24 +46,30 @@ public class MyBookHistory extends Fragment {
         fbLoginAgain = (Button) view.findViewById(R.id.fb_login_btn_again);
         avangLoginAgain = (Button) view.findViewById(R.id.avang_login_btn_again);
 
-        ParseUser parseUser = ParseUser.getCurrentUser();
-        author = parseUser.getUsername();
-
-        Log.d("myHistory", "author  :  " + author);
-
-        if (author != null) {
-            Log.d("myHistory", "author  :  notnull ");
-            fbLoginAgain.setVisibility(View.GONE);
-            avangLoginAgain.setVisibility(View.GONE);
-            new TaskProcess().execute();
+        if (!isConnectingToInternet()) {
+            showAlertDialog();
         }
 
-        if (author == null) {
-            Log.d("myHistory", "author  :  null ");
-            fbLoginAgain.setVisibility(View.VISIBLE);
-            avangLoginAgain.setVisibility(View.VISIBLE);
-        }
+        if (isConnectingToInternet()) {
 
+            ParseUser parseUser = ParseUser.getCurrentUser();
+            author = parseUser.getUsername();
+
+            Log.d("myHistory", "author  :  " + author);
+
+            if (author != null) {
+                Log.d("myHistory", "author  :  notnull ");
+                fbLoginAgain.setVisibility(View.GONE);
+                avangLoginAgain.setVisibility(View.GONE);
+                new TaskProcess().execute();
+            }
+
+            if (author == null) {
+                Log.d("myHistory", "author  :  null ");
+                fbLoginAgain.setVisibility(View.VISIBLE);
+                avangLoginAgain.setVisibility(View.VISIBLE);
+            }
+        }
         return view;
     }
 
@@ -98,5 +112,13 @@ public class MyBookHistory extends Fragment {
             customAdapter = new CustomAdapter(getActivity(), storyBookList);
             listView.setAdapter(customAdapter);
         }
+    }
+
+    public void showAlertDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle(R.string.internet_not_connected_title);
+        alertDialog.setMessage("กรุณาเชื่อมต่อ Internet");
+        alertDialog.setIcon(R.drawable.logo);
+        alertDialog.show();
     }
 }
