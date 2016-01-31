@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.os.Bundle;
@@ -64,6 +65,17 @@ public class AddStoryBookActivity extends AppCompatActivity {
         radioButtonUnExp = (RadioButton) findViewById(R.id.radio_unExp);
     }
 
+    void setTypeface(){
+
+        Typeface myFont = Typeface.createFromAsset(getAssets(), "CSPraJad.otf");
+        Typeface myFontBold = Typeface.createFromAsset(getAssets(), "CSPraJad-bold.otf");
+
+        edtTitle.setTypeface(myFontBold);
+        edtStory.setTypeface(myFont);
+        radioButtonMyExp.setTypeface(myFont);
+        radioButtonUnExp.setTypeface(myFont);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +89,8 @@ public class AddStoryBookActivity extends AppCompatActivity {
         photoAuthor = parseUser.getParseFile("profileThumb");
 
         bindWidget();
+        setTypeface();
+
 
         sharedPreferences = getSharedPreferences("saveDraft", Context.MODE_PRIVATE);
         titleSave = sharedPreferences.getString("titleSave", "");

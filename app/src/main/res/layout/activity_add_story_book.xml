@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -55,16 +56,18 @@
                     android:text="เรื่องเล่า" />
             </RadioGroup>
 
-                <EditText
-                    android:id="@+id/add_edt_story"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="20dp"
-                    android:background="#00000000"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="@string/des_addbook" />
+            <EditText
+                android:id="@+id/add_edt_story"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/des_addbook"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
 
         </LinearLayout>
     </ScrollView>

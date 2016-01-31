@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,8 +23,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|snap"
-            >
+            app:layout_scrollFlags="scroll|snap">
 
             <ImageView
                 android:id="@+id/main.backdrop"
@@ -49,45 +49,53 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            tools:context="com.nuttwarunyu.blankbook.SingleStoryViewActivity">
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
+            <TextView
+                android:id="@+id/single_title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.nuttwarunyu.blankbook.SingleStoryViewActivity">
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textColor="@color/title"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/single_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Title"
-                    android:textStyle="bold"
-                    android:textColor="@color/title"
-                    android:textSize="30sp" />
+            <TextView
+                android:id="@+id/single_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:textSize="15sp"
+                android:textStyle="italic" />
 
-                <TextView
-                    android:id="@+id/single_categories"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="italic"
-                    android:text="Categories"
-                    android:textSize="15sp" />
+            <com.nuttwarunyu.blankbook.CustomFont
+                android:id="@+id/single_story"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:text="Story"
+                android:textColor="@color/story"
+                android:textSize="18sp" />
 
-                <com.nuttwarunyu.blankbook.CustomFont
-                    android:id="@+id/single_story"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="30dp"
-                    android:text="Story"
-                    android:textColor="@color/story"
-                    android:textSize="18sp" />
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/interstitial_ad_unit_id">
 
-            </LinearLayout>
-
+            </com.google.android.gms.ads.AdView>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

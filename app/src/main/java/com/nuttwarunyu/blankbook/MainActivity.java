@@ -18,6 +18,8 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.support.v4.app.Fragment;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -52,6 +54,10 @@ public class MainActivity extends Fragment implements SwipeRefreshLayout.OnRefre
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.GREEN);
         swipeRefreshLayout.setProgressViewOffset(false, 0, 150);
+
+        AdView adView = (AdView) swipeRefreshLayout.findViewById(R.id.adViewMain);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         if (!isConnectingToInternet()) {
             showAlertDialog();

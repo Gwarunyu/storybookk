@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -29,6 +31,10 @@ public class SingleStoryViewActivity extends AppCompatActivity {
         TextView txtCategories = (TextView) findViewById(R.id.single_categories);
         TextView txtStory = (TextView) findViewById(R.id.single_story);
         ImageView imgPhotoFile = (ImageView) findViewById(R.id.main_backdrop);
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         Intent intent = getIntent();
         singleTitle = intent.getStringExtra("title");
