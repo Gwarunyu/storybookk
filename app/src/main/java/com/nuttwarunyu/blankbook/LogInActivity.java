@@ -244,7 +244,7 @@ public class LogInActivity extends AppCompatActivity {
                 parseUser.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        Toast.makeText(getApplicationContext(), "New user:" + name + " Signed up", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "New user Signed up", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -284,7 +284,6 @@ public class LogInActivity extends AppCompatActivity {
 
         loginRegister.setText(parseUser.getUsername());
 
-        Toast.makeText(LogInActivity.this, "Welcome Back  " + loginRegister.getText().toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void GoToMainViewPager() {

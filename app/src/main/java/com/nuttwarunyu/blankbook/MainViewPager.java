@@ -99,7 +99,5 @@ public class MainViewPager extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("MainView OnDestroy", "Clear Cache ");
-        FileCache fileCache = new FileCache(getApplicationContext());
-        fileCache.clear();
     }
 }

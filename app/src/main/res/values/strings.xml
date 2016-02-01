@@ -24,7 +24,7 @@
     <string name="cover_book">cover book</string>
 
     ////ActionBar
-    <string name="log_out">Log Out</string>
+    <string name="log_out">ออกจากระบบ</string>
     <string name="profile">Profile</string>
 
     //Indicator

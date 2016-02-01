@@ -162,20 +162,20 @@ public class AddStoryBookActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Do you wanna Draft your story");
-        builder.setMessage("Are you sure you want to Exit?");
+        builder.setTitle("กลับสู่หน้าหลัก");
+        builder.setMessage("ต้องการบันทึกร่างก่อนออกหรือไม่?!");
         builder.setIcon(R.drawable.logo);
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("ไม่ต้องการ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 edtStory.setText("");
                 edtTitle.setText("");
+                AddStoryBookActivity.super.onBackPressed();
+            }
+        });
+        builder.setPositiveButton("ต้องการ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                 AddStoryBookActivity.super.onBackPressed();
             }
         });
@@ -213,7 +213,7 @@ public class AddStoryBookActivity extends AppCompatActivity {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    Toast.makeText(getApplicationContext(), "Complete", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "บทความถูกส่งเรียบร้อย!", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e("Parse Error", e.toString());
                     Toast.makeText(getApplicationContext(), "Oop! SomethingWrong", Toast.LENGTH_SHORT).show();
@@ -271,7 +271,7 @@ public class AddStoryBookActivity extends AppCompatActivity {
             case R.id.save_btn:
                 if (edtTitle.getText().toString().trim().length() == 0 || edtStory.getText().toString().trim().length() == 0) {
 
-                    Toast.makeText(getApplicationContext(), "Please write your story", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "บทความว่างเปล่า", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 new saveStoryBtn().execute();
@@ -288,7 +288,7 @@ public class AddStoryBookActivity extends AppCompatActivity {
             super.onPreExecute();
             progressDialog = new ProgressDialog(AddStoryBookActivity.this);
             progressDialog.setTitle("AVANG");
-            progressDialog.setMessage("Saving. .");
+            progressDialog.setMessage("รอสักครู่ ระบบกำลังส่งบทความค่ะ. .");
             progressDialog.setIndeterminate(false);
             progressDialog.show();
         }
