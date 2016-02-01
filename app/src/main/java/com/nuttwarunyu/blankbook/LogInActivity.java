@@ -73,6 +73,7 @@ public class LogInActivity extends AppCompatActivity {
 
         loginRegister = (Button) findViewById(R.id.login_register);
         mProfileImage = (ImageView) findViewById(R.id.mProfileImage);
+
     }
 
     @Override
@@ -93,7 +94,6 @@ public class LogInActivity extends AppCompatActivity {
             Log.d("LogInActivity ", " By ParseUser.getCurrentUser() != null");
             GoToMainViewPager();
         }
-
 
         fbLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

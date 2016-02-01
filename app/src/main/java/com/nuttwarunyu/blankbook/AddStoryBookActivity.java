@@ -27,6 +27,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -90,7 +91,6 @@ public class AddStoryBookActivity extends AppCompatActivity {
 
         bindWidget();
         setTypeface();
-
 
         sharedPreferences = getSharedPreferences("saveDraft", Context.MODE_PRIVATE);
         titleSave = sharedPreferences.getString("titleSave", "");
@@ -245,7 +245,8 @@ public class AddStoryBookActivity extends AppCompatActivity {
                     bitmap = BitmapFactory.decodeStream(stream);
                     assert stream != null;
                     stream.close();
-                    imgPhoto.setImageBitmap(bitmap);
+                    //imgPhoto.setImageBitmap(bitmap);
+                    Glide.with(getApplicationContext()).load(bitmap).centerCrop().into(imgPhoto);
 
                 } catch (IOException e) {
                     e.printStackTrace();

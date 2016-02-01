@@ -16,19 +16,13 @@
 
         <ImageView
             android:id="@+id/regis_photo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="300dp"
+            android:layout_height="180dp"
             android:layout_gravity="center_horizontal"
-            android:background="@color/colorPrimary" />
+            android:background="@drawable/upload_user"
 
+            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="register"
-            android:textColor="#ff3eaff9"
-            android:textSize="24sp" />
 
 
         <android.support.design.widget.TextInputLayout
@@ -41,7 +35,8 @@
                 android:id="@+id/regis_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="username_regis"
+                android:textSize="16sp"
+                android:hint="@string/username_login"
                 android:padding="16dp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -54,8 +49,9 @@
                 android:id="@+id/regis_password1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="password_regis1"
+                android:hint="@string/password_login"
                 android:inputType="textPassword"
+                android:textSize="16sp"
                 android:padding="16dp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -68,7 +64,8 @@
                 android:id="@+id/regis_password2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="password_regis2"
+                android:textSize="16sp"
+                android:hint="@string/password_login_confirm"
                 android:inputType="textPassword"
                 android:padding="16dp" />
         </android.support.design.widget.TextInputLayout>
@@ -78,8 +75,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/colorAccent"
-            android:text="Regis_button"
+
+            android:background="@drawable/button_boarder"
+            android:text="@string/regis_btn"
             android:textColor="@color/black"
             android:textSize="18sp" />
 

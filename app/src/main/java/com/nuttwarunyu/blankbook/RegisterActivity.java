@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -32,6 +34,16 @@ public class RegisterActivity extends AppCompatActivity {
     final int REQUEST_IMAGE_SELECTOR = 1;
     Bitmap bitmap;
 
+    void setTypeface() {
+
+        Typeface myFont = Typeface.createFromAsset(getAssets(), "CSPraJad.otf");
+        Typeface myFontBold = Typeface.createFromAsset(getAssets(), "CSPraJad-bold.otf");
+        registerBtn.setTypeface(myFontBold);
+        registerUser.setTypeface(myFont);
+        registerPass1.setTypeface(myFont);
+        registerPass2.setTypeface(myFont);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerPass2 = (EditText) findViewById(R.id.regis_password2);
         registerPhoto = (ImageView) findViewById(R.id.regis_photo);
 
-        registerPhoto.setImageResource(R.drawable.logo);
+        setTypeface();
 
         registerPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +120,8 @@ public class RegisterActivity extends AppCompatActivity {
                     bitmap = BitmapFactory.decodeStream(stream);
                     assert stream != null;
                     stream.close();
-                    registerPhoto.setImageBitmap(bitmap);
+                    //registerPhoto.setImageBitmap(bitmap);
+                    Glide.with(getApplicationContext()).load(bitmap).fitCenter().into(registerPhoto);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -4,12 +4,18 @@
     //FB ID
     <string name="fb_app_id">1704853149727291</string>
 
-    //LogIn
-    <string name="username_login">username</string>
-    <string name="password_login">password</string>
+    //LogIn-Regis
+    <string name="username_login">ชื่อประจำตัว</string>
+    <string name="password_login">รหัสผ่าน</string>
+    <string name="password_login_confirm">ยืนยันรหัสผ่าน</string>
     <string name="login_btn">LOG IN</string>
+    <string name="regis_btn">สมัครสมาชิก</string>
+    <string name="regis_title">อัพโหลดรูปภาพประจำตัว</string>
     <string name="signIn_fb">Sign in with Facebook</string>
+    <string name="signIn_twitter">Sign in with Twitter</string>
     <string name="signIn_avang">Sign in with AVANG</string>
+
+
 
     //AddBook
     <string name="save_addbook">บันทึก</string>

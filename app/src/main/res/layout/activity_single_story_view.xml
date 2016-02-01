@@ -60,6 +60,7 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             tools:context="com.nuttwarunyu.blankbook.SingleStoryViewActivity">
 
+
             <TextView
                 android:id="@+id/single_title"
                 android:layout_width="match_parent"
@@ -77,6 +78,17 @@
                 android:textSize="15sp"
                 android:textStyle="italic" />
 
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/interstitial_ad_unit_id">
+            </com.google.android.gms.ads.AdView>
+
             <com.nuttwarunyu.blankbook.CustomFont
                 android:id="@+id/single_story"
                 android:layout_width="match_parent"
@@ -86,16 +98,7 @@
                 android:textColor="@color/story"
                 android:textSize="18sp" />
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/interstitial_ad_unit_id">
 
-            </com.google.android.gms.ads.AdView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
